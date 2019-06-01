@@ -1,0 +1,39 @@
+:root {
+    --animate-img-width: 800px;
+}
+
+.animate-element__images>.animate-img {
+    position: relative;
+}
+
+.animate-element__images>.animate-img>p>img {
+    width: var(--animate-img-width);
+}
+
+.animate-element__images>.animate-img>div {
+    font-size: 14px;
+    line-height: normal;
+    font-weight: 400;
+    position: absolute;
+}
+
+.animate-element__images>.animate-img>div>p {
+    margin: 0;
+    font-size: 14px;
+    line-height: normal;
+    font-weight: 400;
+}
+
+.animate-element__images>.mobile {
+    display: none;
+}
+
+@media all and (max-width:1000px) {
+    .animate-img {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+}

@@ -1,0 +1,6 @@
+---
+Name: elementalanimateblockconfig
+---
+DNADesign\Elemental\Controllers\ElementController:
+  default_styles:
+    - cwchong/elemental-animateblock:client/dist/styles/frontend.css

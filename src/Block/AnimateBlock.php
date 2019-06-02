@@ -6,15 +6,17 @@ use Cwchong\ElementalAnimateBlock\Models\TextBlock;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
+use SilverStripe\Assets\Image_Backend;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\ORM\FieldType\DBField;
 // use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
 
 class AnimateBlock extends BaseElement {
 
     private static $table_name = 'C_EAB_AnimateBlock';
-    private static $icon = 'font-icon-block-carousel';
+    private static $icon = 'font-icon-block-file';
 
     /**
      * Set to false to prevent an in-line edit form from showing in an elemental area. Instead the element will be
@@ -67,9 +69,21 @@ class AnimateBlock extends BaseElement {
         return 'Animate';
     }
 
+    // public function getSummary()
+    // {
+    //     return DBField::create_field('HTMLText', $this->HTML)->Summary(20);
+    // }
+    // protected function provideBlockSchema()
+    // {
+    //     $blockSchema = parent::provideBlockSchema();
+    //     $blockSchema['content'] = $this->getSummary();
+    //     return $blockSchema;
+    // }
+
     public function getSummary() {
         if($this->Image() && $this->Image()->exists()) {
-            return $this->getSummaryThumbnail() . $this->Image()->Title;
+            return DBField::create_field('HTMLText', $this->Image()->Name)->Summary(20);
+            // return $this->getSummaryThumbnail() . $this->Image()->Title;
         }
         return '';
     }
@@ -78,8 +92,9 @@ class AnimateBlock extends BaseElement {
     protected function provideBlockSchema() {
         $blockSchema = parent::provideBlockSchema();
         if($this->Image() && $this->Image()->exists()) {
-            $blockSchema['imageURL'] = $this->Image()->CMSThumbnail()->getURL();
-            $blockSchema['imageTitle'] = $this->Image()->getTitle();
+            // $blockSchema['imageURL'] = $this->Image()->CMSThumbnail()->getURL();
+            // $blockSchema['imageTitle'] = $this->Image()->getTitle();
+            $blockSchema['content'] = $this->getSummary();
         }
         return $blockSchema;
     }
@@ -95,7 +110,7 @@ class AnimateBlock extends BaseElement {
                 $data['Image'] = $this->Image()->ScaleHeight(36)->CropWidth(36);
             }
         }
-        return $this->customise($data)->renderWith(__CLASS__ . '/SummaryThumbnail');
+        return $this->customise($data)->renderWith(__CLASS__ . '/SummaryThumbnail')->forTemplate();
     }
 
 

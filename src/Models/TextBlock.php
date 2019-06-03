@@ -5,6 +5,7 @@ namespace Cwchong\ElementalAnimateBlock\Models;
 use Cwchong\ElementalAnimateBlock\Block\AnimateBlock;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\View\Requirements;
 
 class TextBlock extends DataObject {
     
@@ -40,8 +41,9 @@ class TextBlock extends DataObject {
             $fields->removeByName('AnimateBlockID');
 
             $contentField = $fields->fieldByName('Root.Main.Content');
-            $contentField->setRows(5);
+            $contentField->setRows(5)->addExtraClass('textblock');
         });
+        Requirements::javascript('cwchong/elemental-animateblock:client/dist/js/EditorLocale.js');
         return parent::getCMSFields();
     }
 

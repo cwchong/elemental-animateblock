@@ -29,11 +29,11 @@
 }
 
 @media all and (max-width:1000px) {
-    .animate-img {
+    .animate-element__images>.animate-img {
         display: none;
     }
 
-    .mobile {
+    .animate-element__images>.mobile {
         display: block;
     }
 }
